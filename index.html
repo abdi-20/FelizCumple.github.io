@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Nidia Lizbeth ✨</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/boot.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="text-[#5c4a52] antialiased">
+
+  <!-- ═══════════════════════════════════════════
+       MÚSICA DE FONDO (cambia el src por tu archivo)
+       ═══════════════════════════════════════════ -->
+  <!-- Pon tu archivo en: musica/cancion.mp3 (también sirve .m4a cambiando type abajo) -->
+  <audio id="bg-music" src="musica/cancion.mp3" loop preload="auto"></audio>
+
+  <!-- ═══════════════════════════════════════════
+       PANTALLA BOOT — Sistema operativo de cumpleaños
+       ═══════════════════════════════════════════ -->
+  <section id="boot-screen" class="fixed inset-0 z-[60] flex items-center justify-center px-4 sm:px-6 overflow-hidden">
+    <div id="boot-particles" class="absolute inset-0 overflow-hidden" aria-hidden="true"></div>
+
+    <div class="boot-orb boot-orb--purple" aria-hidden="true"></div>
+    <div class="boot-orb boot-orb--pink" aria-hidden="true"></div>
+    <div class="boot-orb boot-orb--blue" aria-hidden="true"></div>
+    <div class="boot-scanlines" aria-hidden="true"></div>
+
+    <div class="boot-glass relative z-10 w-full max-w-lg rounded-2xl overflow-hidden">
+      <div class="boot-titlebar flex items-center gap-2 px-4 py-3">
+        <span class="boot-dot boot-dot--pink"></span>
+        <span class="boot-dot boot-dot--purple"></span>
+        <span class="boot-dot boot-dot--blue"></span>
+        <span class="ml-3 text-xs font-mono text-purple-300/80 tracking-wider">birthday_os.sys</span>
+      </div>
+
+      <div class="p-5 sm:p-6">
+        <p class="text-[10px] sm:text-xs font-mono text-purple-400/60 mb-4 tracking-widest uppercase">
+          Birthday System v1.0 · Secure boot
+        </p>
+
+        <div id="boot-terminal" class="boot-terminal" aria-live="polite"></div>
+
+        <div class="mt-5 mb-6">
+          <div class="flex justify-between text-[10px] font-mono text-pink-200/50 mb-1.5">
+            <span>System load</span>
+            <span id="boot-progress-label">0%</span>
+          </div>
+          <div class="boot-progress-track">
+            <div id="boot-progress-fill" class="boot-progress-fill"></div>
+          </div>
+        </div>
+
+        <div id="boot-welcome" class="boot-welcome text-center py-4 border-t border-purple-500/20">
+          <p class="boot-welcome-text">Welcome Nidia Lizbeth</p>
+          <p class="boot-welcome-sub">Access granted · Happy birthday</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PANTALLA INICIAL (LANDING)
+       ═══════════════════════════════════════════ -->
+  <section id="landing" class="fixed inset-0 z-50 flex flex-col items-center justify-center px-6">
+    <div id="particles" class="absolute inset-0 overflow-hidden" aria-hidden="true"></div>
+
+    <div class="relative z-10 text-center max-w-lg">
+      <p class="text-gold/80 text-sm tracking-[0.35em] uppercase mb-6 font-light">Un detalle hecho con cariño</p>
+
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-[#5c4a52] leading-tight mb-10 italic font-semibold">
+        Tengo algo especial<br class="hidden sm:block" /> para ti...
+      </h1>
+
+      <button
+        id="btn-abrir"
+        type="button"
+        class="btn-sorpresa px-10 py-4 rounded-full text-white font-semibold tracking-wide text-base sm:text-lg"
+        aria-label="Abrir sorpresa"
+      >
+        Abrir sorpresa ✨
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CONTENIDO PRINCIPAL (oculto al inicio)
+       ═══════════════════════════════════════════ -->
+  <main id="main-content" class="relative z-10 pointer-events-none">
+
+    <div class="h-2 bg-gradient-to-r from-transparent via-rose/40 to-transparent"></div>
+
+    <!-- ── SECCIÓN 1: Carta interactiva ── -->
+    <section id="seccion-carta" class="min-h-[70vh] flex items-center justify-center px-5 py-20 sm:py-28">
+      <div class="carta-box max-w-2xl w-full mx-auto rounded-2xl p-8 sm:p-12 relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full bg-gold/60"></div>
+        <p class="text-gold text-xs tracking-widest uppercase text-center mb-8">💌 Una carta para ti</p>
+        <div id="typed-text" aria-live="polite"></div>
+        <button
+          id="btn-abrir-sobre"
+          type="button"
+          class="btn-sobre is-hidden mt-8 mx-auto"
+          aria-expanded="false"
+          aria-controls="carta2-box"
+        >
+          ¿Quieres leer más? 💌
+        </button>
+      </div>
+    </section>
+
+    <div class="gold-line max-w-xs mx-auto my-4"></div>
+
+    <!-- ── Contadores: edad y días juntos ── -->
+    <section id="seccion-contador" class="scroll-reveal px-5 py-14 sm:py-20">
+      <div class="text-center mb-10">
+        <p class="text-gold text-xs tracking-widest uppercase mb-3">Números con significado</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-[#5c4a52] font-semibold italic">Nuestra historia en cifras</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card scroll-reveal-child">
+          <span class="stat-number stat-highlight" id="stat-cumple">—</span>
+          <span class="stat-label" id="stat-cumple-label">Tu cumpleaños</span>
+        </div>
+        <div class="stat-card scroll-reveal-child">
+          <span class="stat-number" id="stat-dias">—</span>
+          <span class="stat-label" id="stat-dias-label">Desde que nos conocimos</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="gold-line max-w-xs mx-auto my-4"></div>
+
+    <!-- ── Segundo sobre / carta ── -->
+    <section id="seccion-sobre" class="scroll-reveal px-5 py-14 sm:py-20">
+      <div class="text-center mb-10">
+        <p class="text-gold text-xs tracking-widest uppercase mb-3">Un secreto más</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-[#5c4a52] font-semibold italic">Hay otro mensaje para ti</h2>
+      </div>
+      <div class="sobre-wrapper">
+        <div id="sobre-visual" class="sobre-visual" aria-hidden="true">
+          <div class="sobre-solapa"></div>
+          <span class="sobre-corazon">💌</span>
+          <div class="sobre-cuerpo"></div>
+        </div>
+        <p class="text-sm text-[#8b7379] mb-4 font-light">Abre el sobre y descubre lo que sigue</p>
+        <button
+          id="btn-abrir-sobre-2"
+          type="button"
+          class="btn-sobre"
+          aria-expanded="false"
+          aria-controls="carta2-box"
+        >
+          Abrir sobre 💜
+        </button>
+        <div id="carta2-box" class="carta2-box" role="region" aria-label="Segunda carta">
+          <div id="carta2-inner" class="carta2-inner"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gold-line max-w-xs mx-auto my-4"></div>
+
+    <!-- ── Razones por las que… ── -->
+    <section id="seccion-razones" class="scroll-reveal px-5 py-14 sm:py-20">
+      <div class="text-center mb-12">
+        <p class="text-gold text-xs tracking-widest uppercase mb-3">Porque eres especial</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-[#5c4a52] font-semibold italic">Razones por las que…</h2>
+      </div>
+      <div id="razones-grid" class="razones-grid"></div>
+    </section>
+
+    <div class="gold-line max-w-xs mx-auto my-4"></div>
+
+    <!-- ── Galería Polaroid ── -->
+    <section id="seccion-galeria" class="scroll-reveal px-5 py-16 sm:py-24">
+      <div class="text-center mb-14">
+        <p class="text-gold text-xs tracking-widest uppercase mb-3">Recuerdos</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-[#5c4a52] font-semibold italic">Momentos que guardo contigo 📸</h2>
+      </div>
+
+      <!--
+        GALERÍA: Reemplaza los src de cada img por tus fotos.
+        Ejemplo: src="fotos/foto1.jpg"
+      -->
+      <div class="polaroid-grid max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 place-items-center">
+
+        <div class="polaroid w-[200px] sm:w-[210px]" style="transform: rotate(-6deg);">
+          <img src="fotos/foto1.png" alt="Recuerdo 1" loading="lazy" />
+          <p class="polaroid-caption">Un momento especial</p>
+        </div>
+
+        <div class="polaroid w-[200px] sm:w-[210px] sm:mt-8" style="transform: rotate(4deg);">
+          <img src="fotos/foto2.png" alt="Recuerdo 2" loading="lazy" />
+          <p class="polaroid-caption">Sonrisas tuyas</p>
+        </div>
+
+        <div class="polaroid w-[200px] sm:w-[210px]" style="transform: rotate(-3deg);">
+          <img src="fotos/foto3.png" alt="Recuerdo 3" loading="lazy" />
+          <p class="polaroid-caption">Juntos</p>
+        </div>
+
+        <div class="polaroid w-[200px] sm:w-[210px] sm:mt-6" style="transform: rotate(7deg);">
+          <img src="fotos/foto4.png" alt="Recuerdo 4" loading="lazy" />
+          <p class="polaroid-caption">Para siempre</p>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="gold-line max-w-md mx-auto"></div>
+
+    <!-- ── Mensaje final + confeti ── -->
+    <section id="seccion-final" class="scroll-reveal final-glow px-5 py-24 sm:py-32 text-center min-h-[60vh] flex flex-col items-center justify-center">
+      <span class="heart-deco text-3xl mb-6 block" aria-hidden="true">❤️</span>
+
+      <p class="font-body text-lg sm:text-xl text-[#6b5a62] max-w-md mx-auto leading-relaxed mb-3 font-light">
+        Gracias por ser una persona increíble.
+      </p>
+      <p class="font-body text-lg sm:text-xl text-[#6b5a62] max-w-md mx-auto leading-relaxed mb-12 font-light">
+        Espero que este pequeño detalle te saque una sonrisita. ❤️
+      </p>
+
+      <h2 id="titulo-cumple" class="font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-[#5c4a52] tracking-tight">
+        <span class="text-gold">🎂</span>
+        Feliz cumpleaños
+        <span class="text-gold">🎂</span>
+      </h2>
+
+      <p class="mt-6 font-display text-2xl sm:text-3xl italic text-rose-deep">
+        Nidia Lizbeth
+      </p>
+
+      <p class="mt-10 text-sm text-gold/80 tracking-widest">Con todo mi cariño ✨</p>
+    </section>
+
+    <footer class="py-8 text-center text-xs text-[#b8a8ae]">
+      Hecho con amor · 2026
+    </footer>
+  </main>
+
+  <!-- Librerías CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Lógica de la página -->
+  <script src="js/config.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

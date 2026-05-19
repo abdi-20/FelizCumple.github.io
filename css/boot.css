@@ -1,0 +1,271 @@
+/* ═══════════════════════════════════════════
+   Birthday OS — Pantalla de arranque
+   Colores: negro · morado · rosa pastel · azul oscuro
+   ═══════════════════════════════════════════ */
+
+:root {
+  --boot-black: #050508;
+  --boot-blue: #0c1222;
+  --boot-blue-deep: #121a2e;
+  --boot-purple: #7c3aed;
+  --boot-purple-soft: #a78bfa;
+  --boot-pink: #f8b4d9;
+  --boot-pink-soft: #f5d0e8;
+}
+
+#boot-screen {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(124, 58, 237, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 85% 75%, rgba(248, 180, 217, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(30, 27, 75, 0.9) 0%, transparent 60%),
+    linear-gradient(160deg, var(--boot-black) 0%, var(--boot-blue) 45%, #0f0a1a 100%);
+  transition: opacity 1.4s ease, visibility 1.4s ease;
+}
+
+#boot-screen.boot-fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Luces suaves con blur */
+.boot-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orbPulse 6s ease-in-out infinite;
+}
+
+.boot-orb--purple {
+  width: min(420px, 70vw);
+  height: min(420px, 70vw);
+  top: -8%;
+  right: -10%;
+  background: rgba(124, 58, 237, 0.45);
+}
+
+.boot-orb--pink {
+  width: min(320px, 55vw);
+  height: min(320px, 55vw);
+  bottom: 10%;
+  left: -8%;
+  background: rgba(248, 180, 217, 0.35);
+  animation-delay: -2s;
+}
+
+.boot-orb--blue {
+  width: min(280px, 50vw);
+  height: min(280px, 50vw);
+  top: 45%;
+  left: 40%;
+  background: rgba(30, 58, 138, 0.5);
+  animation-delay: -4s;
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50%      { transform: scale(1.12); opacity: 1; }
+}
+
+/* Partículas OS */
+.boot-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: bootParticleFloat linear infinite;
+}
+
+@keyframes bootParticleFloat {
+  0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+  8%   { opacity: 0.85; }
+  92%  { opacity: 0.5; }
+  100% { transform: translateY(-5vh) translateX(20px); opacity: 0; }
+}
+
+/* Panel glassmorphism */
+.boot-glass {
+  background: rgba(12, 18, 34, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  box-shadow:
+    0 0 0 1px rgba(248, 180, 217, 0.08) inset,
+    0 24px 80px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(124, 58, 237, 0.15);
+}
+
+.boot-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 180, 217, 0.35),
+    transparent 40%,
+    rgba(124, 58, 237, 0.3)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: 1rem;
+}
+
+/* Barra de título estilo ventana */
+.boot-titlebar {
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.boot-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.boot-dot--pink  { background: var(--boot-pink); box-shadow: 0 0 8px var(--boot-pink); }
+.boot-dot--purple { background: var(--boot-purple-soft); box-shadow: 0 0 8px var(--boot-purple); }
+.boot-dot--blue  { background: #3b82f6; box-shadow: 0 0 8px #3b82f6; opacity: 0.8; }
+
+/* Terminal */
+.boot-terminal {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+  line-height: 1.9;
+  color: var(--boot-pink-soft);
+  min-height: 6.5rem;
+}
+
+.boot-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: bootLineIn 0.5s ease forwards;
+}
+
+@keyframes bootLineIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.boot-line-prefix {
+  color: var(--boot-purple-soft);
+  flex-shrink: 0;
+}
+
+.boot-line-text {
+  color: var(--boot-pink-soft);
+}
+
+.boot-line-ok {
+  color: #86efac;
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.8em;
+  opacity: 0;
+  animation: bootOkIn 0.5s ease 0.85s forwards;
+}
+
+@keyframes bootOkIn {
+  to { opacity: 1; }
+}
+
+.boot-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--boot-pink);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: bootBlink 0.9s step-end infinite;
+}
+
+@keyframes bootBlink {
+  50% { opacity: 0; }
+}
+
+/* Barra de progreso */
+.boot-progress-track {
+  height: 4px;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.boot-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--boot-purple), var(--boot-pink), var(--boot-purple-soft));
+  box-shadow: 0 0 12px rgba(248, 180, 217, 0.6);
+  transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Welcome */
+.boot-welcome {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+
+.boot-welcome.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.boot-welcome-text {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(1.25rem, 5vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: linear-gradient(90deg, var(--boot-pink), #fff, var(--boot-purple-soft));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: welcomeShine 4s linear infinite;
+  text-shadow: 0 0 40px rgba(248, 180, 217, 0.3);
+}
+
+@keyframes welcomeShine {
+  to { background-position: 200% center; }
+}
+
+.boot-welcome-sub {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(167, 139, 250, 0.7);
+  margin-top: 0.75rem;
+}
+
+/* Scanlines sutiles */
+.boot-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+@media (max-width: 640px) {
+  .boot-glass {
+    margin: 0 0.5rem;
+  }
+}

@@ -1,0 +1,436 @@
+/* ── Base ── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: #fff9f5;
+  overflow-x: hidden;
+}
+
+body.boot-active {
+  overflow: hidden;
+}
+
+/* ── Landing: gradiente animado ── */
+#landing {
+  background: linear-gradient(
+    -45deg,
+    #fff9f5,
+    #f8e8ee,
+    #fce4ec,
+    #fff5f7,
+    #f3e5f0
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Partículas flotantes */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(110vh) scale(0); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+#landing.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+#main-content {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+}
+
+#main-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Botón sorpresa ── */
+.btn-sorpresa {
+  background: linear-gradient(135deg, #e8b4bc 0%, #d4a5b0 100%);
+  box-shadow:
+    0 8px 32px rgba(212, 165, 176, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.btn-sorpresa:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 14px 40px rgba(212, 165, 176, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.btn-sorpresa:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ── Carta typewriter ── */
+.carta-box {
+  background: linear-gradient(145deg, #fff 0%, #fff9f5 100%);
+  border: 1px solid rgba(201, 169, 98, 0.25);
+  box-shadow: 0 20px 60px rgba(212, 165, 176, 0.2);
+}
+
+.typed-cursor {
+  color: #c9a962;
+  font-weight: 300;
+}
+
+#typed-text {
+  min-height: 7rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  line-height: 1.75;
+  color: #5c4a52;
+}
+
+/* ── Polaroids ── */
+.polaroid {
+  background: #fff;
+  padding: 12px 12px 48px 12px;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.45s ease;
+  cursor: default;
+}
+
+.polaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #f8e8ee;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.08) !important;
+  z-index: 20;
+  box-shadow: 0 24px 56px rgba(212, 165, 176, 0.35);
+}
+
+.polaroid-caption {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  color: #8b7379;
+  text-align: center;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ── Sección final ── */
+.final-glow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(232, 180, 188, 0.25) 0%,
+    transparent 70%
+  );
+}
+
+.gold-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a962, transparent);
+}
+
+.heart-deco {
+  animation: pulseHeart 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseHeart {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50%      { transform: scale(1.15); opacity: 1; }
+}
+
+/* ── Scroll reveal ── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal-child {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.scroll-reveal.is-visible .scroll-reveal-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal.is-visible .scroll-reveal-child:nth-child(1) { transition-delay: 0.05s; }
+.scroll-reveal.is-visible .scroll-reveal-child:nth-child(2) { transition-delay: 0.15s; }
+.scroll-reveal.is-visible .scroll-reveal-child:nth-child(3) { transition-delay: 0.25s; }
+.scroll-reveal.is-visible .scroll-reveal-child:nth-child(4) { transition-delay: 0.35s; }
+.scroll-reveal.is-visible .scroll-reveal-child:nth-child(5) { transition-delay: 0.45s; }
+
+/* ── Contadores / fechas ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stat-card {
+  background: linear-gradient(145deg, #fff 0%, #fff9f5 100%);
+  border: 1px solid rgba(201, 169, 98, 0.2);
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(212, 165, 176, 0.15);
+}
+
+.stat-number {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-weight: 600;
+  color: #5c4a52;
+  line-height: 1.2;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #8b7379;
+  letter-spacing: 0.04em;
+}
+
+.stat-highlight {
+  color: #c9a962;
+}
+
+/* ── Segundo sobre / carta ── */
+.sobre-wrapper {
+  max-width: 32rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sobre-visual {
+  position: relative;
+  width: 140px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  transition: transform 0.5s ease;
+}
+
+.sobre-visual.is-open {
+  transform: translateY(-8px);
+}
+
+.sobre-cuerpo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(160deg, #f8e8ee 0%, #e8b4bc 100%);
+  border-radius: 4px 4px 8px 8px;
+  box-shadow: 0 8px 24px rgba(212, 165, 176, 0.35);
+  border: 1px solid rgba(201, 169, 98, 0.25);
+}
+
+.sobre-solapa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  background: linear-gradient(180deg, #fce4ec 0%, #e8b4bc 100%);
+  clip-path: polygon(0 0, 50% 85%, 100% 0);
+  transform-origin: top center;
+  transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 2;
+}
+
+.sobre-visual.is-open .sobre-solapa {
+  transform: rotateX(180deg);
+  opacity: 0.3;
+}
+
+.sobre-corazon {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  z-index: 1;
+  animation: pulseHeart 2.5s ease-in-out infinite;
+}
+
+.btn-sobre {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #5c4a52;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(212, 165, 176, 0.5);
+  box-shadow: 0 6px 20px rgba(212, 165, 176, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.btn-sobre:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(212, 165, 176, 0.35);
+}
+
+.btn-sobre.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+.carta2-box {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.7s ease,
+    margin 0.5s ease;
+  margin-top: 0;
+}
+
+.carta2-box.is-open {
+  max-height: 520px;
+  opacity: 1;
+  margin-top: 1.75rem;
+}
+
+.carta2-inner {
+  background: linear-gradient(145deg, #fff 0%, #fff5f8 100%);
+  border: 1px solid rgba(201, 169, 98, 0.25);
+  border-radius: 1rem;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 16px 48px rgba(212, 165, 176, 0.2);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+  line-height: 1.75;
+  color: #5c4a52;
+  text-align: left;
+}
+
+/* ── Razones ── */
+.razones-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .razones-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .razones-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .razones-grid .razon-card:last-child:nth-child(5) {
+    grid-column: 2;
+  }
+}
+
+.razon-card {
+  background: #fff;
+  border: 1px solid rgba(232, 180, 188, 0.35);
+  border-radius: 1rem;
+  padding: 1.35rem 1.25rem;
+  box-shadow: 0 8px 28px rgba(212, 165, 176, 0.12);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.razon-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(212, 165, 176, 0.22);
+}
+
+.razon-emoji {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.razon-titulo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #5c4a52;
+  margin-bottom: 0.35rem;
+}
+
+.razon-texto {
+  font-size: 0.9rem;
+  color: #8b7379;
+  line-height: 1.55;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .polaroid-grid {
+    gap: 2rem;
+  }
+
+  .polaroid {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+}
